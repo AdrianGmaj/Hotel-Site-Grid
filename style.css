@@ -248,40 +248,110 @@ header#header {
   /* transition-duration: 1s; */
 }
 
-.header__main-nav input[type=checkbox]:checked~.header__main-nav--menu>div >div {
-opacity:1
+.header__main-nav input[type=checkbox]:checked~.header__main-nav--menu>div>div {
+  opacity: 1
 }
 
 
 .header__main-nav--menu ul li a:link,
-.header__main-nav--menu ul li a:visited{
+.header__main-nav--menu ul li a:visited {
   z-index: 5;
   font-size: calc(1.5rem +0.5vw);
 }
 
 .header__main-nav--menu ul li a:link::before,
-.header__main-nav--menu ul li a:visited::before{
+.header__main-nav--menu ul li a:visited::before {
   content: "";
   position: absolute;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   z-index: -1;
   transform: scaleY(0);
   background-color: var(--color-primary-m-dark);
-  transition:transform  var(--transition-duration) ease-in-out;
+  transition: transform var(--transition-duration) ease-in-out;
 }
+
 .header__main-nav--menu ul li a:hover::before,
-.header__main-nav--menu ul li a:hover::before{
+.header__main-nav--menu ul li a:hover::before {
   transform: scaleY(1);
+}
+
+/* header content */
+.header__logo__content {
+  display: grid;
+  grid-template-columns: 1fr minmax(30rem, 1fr) 1fr;
+  grid-template-rows: min-content;
+  height: 90%;
+  justify-content: center;
+
+}
+
+
+.header__logo__content--logo {
+  grid-column: 2/3;
+  letter-spacing: 0.2rem;
+  text-align: center;
+
+
+}
+
+.header__logo__content--logo span {
+  color: var(--color-tertiary);
+  font-size: 3rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.header__logo__content--content {
+  grid-column: 1 / -1;
+  align-self: center;
+}
+
+.header__logo__content--content__title {
+  font-size: calc(4rem + 5vw);
+  font-weight: 300;
+  color: white;
+  text-transform: uppercase;
+  padding: 0 2rem 0 var(--font-size--title);
+}
+
+.header__logo__content--content__para {
+  font-size: calc(1rem + 2vw);
+  font-weight: 500;
+  padding: 2vh 2rem 6vh var(--font-size--title)
+}
+
+.header__content--link:link,
+.header__content--link:visited {
+  margin-left: var(--font-size--title);
+  border: 0.2rem solid var(--color-tertiary)
+}
+
+.header__content--link:link::before,
+.header__content--link:visited::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  background-color: var(--color-tertiary-m-dark);
+  transition: transform 0.5s cubic-bezier(1, 0, 0, 1);
+  z-index: -1;
+}
+
+.header__content--link:hover::before,
+.header__content--link:active::before {
+  transform: scaleX(1);
 }
 
 /* booking content */
 section#booking-content {
-  background-color: var(--color-secondary);
   grid-column: center-start/col-end 6;
-  height: 400px;
+  padding: var(--padding-section);
+
 }
 
 /* booking date */
@@ -290,6 +360,36 @@ section#booking-date {
   background-color: var(--color-tertiary);
   grid-column: col-start 7/ center-end;
   height: 400px;
+
+  display: grid;
+  grid-template-rows: repeat(3, max-content);
+  gap: 2vh;
+}
+
+.booking-content__title{
+  font-size: var(--font-size--title);
+  padding: 0 2rem 1rem ;
+  font-weight: 300;
+  position: relative;
+}
+
+.booking-content__title::after{
+  content:'';
+  position: absolute;
+  bottom:0;
+  left:15%;
+  height:0.2rem ;
+  width: 30%;
+
+  background-color: var(--color-secondary);
+}
+
+.booking-content__para{
+  padding: 2rem;
+}
+
+section#booking-content p{
+  color: var (var(--color-primary))
 }
 
 /* villas section */
