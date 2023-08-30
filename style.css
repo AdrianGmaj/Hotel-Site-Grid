@@ -15,21 +15,21 @@
 
   /* colors */
   --color-primary: #730039;
-  --color-primary-m-light: #73003a7c;
-  --color-primary-m-light: #73003a;
+  --color-primary-m-light: hsla(330, 100%, 23%, 0.55);
+  --color-primary-m-dark: hsla(330, 100%, 23%, 0.85);
 
   --color-secondary: #ffc513;
-  --color-secondary-m-light: #ffc41370;
-  --color-secondary-m-dark: #bf9312;
+  --color-secondary-m-light: hsla(45, 100%, 54%, 0.55);
+  --color-secondary-m-dark: rgba(255, 196, 19, 0.85);
 
   --color-tertiary: #ff724d;
-  --color-tertiary-m-light: #ff714d81;
-  --color-tertiary-m-dark: #ab4c35;
+  --color-tertiary-m-light: hsla(13, 100%, 65%, 0.55);
+  --color-tertiary-m-dark: rgba(255, 115, 76, 0.85);
 
 
   --color-quaternary: #f6eedf;
-  --color-quaternary-m-light: #f6eedf8c;
-  --color-quaternary-m-dark: #b3ada3;
+  --color-quaternary-m-light: hsla(39, 56%, 92%, 0.55);
+  --color-quaternary-m-dark: hsla(39, 56%, 92%, 0.85);
 
 
   /* transition */
@@ -51,11 +51,44 @@ body {
 .container {
   display: grid;
   grid-template-columns: [container-start]1fr [center-start]repeat(10, [col-start] minmax(min-content, 12rem)[col-end])[center-end] 1fr [container-end];
-  grid-template-rows:  repeat(8, min-content);
+  grid-template-rows: repeat(8, min-content);
 }
 
 .container>* {
   font-size: 2rem;
+}
+
+/* anchor tags */
+a:link,
+a:visited {
+  color: var(--color-quaternary);
+  text-decoration: none;
+  font-size: calc(0.5rem +1vw);
+  padding: 1rem 2rem;
+  border-radius: 0.3rem;
+  position: relative;
+  transition: all var(--transition-duration) cubic-bezier(1, 0, 0, 1);
+  z-index: 1;
+}
+
+
+/* paragraphs */
+p {
+  color: white;
+  font-size: calc(1rem + 1vw);
+  font-weight: 300;
+}
+
+/* list items */
+li {
+  list-style: none;
+  margin-bottom: 4rem;
+}
+
+/* icons */
+i {
+  font-size: var(--font-size--title);
+  color: var(--color-secondary)
 }
 
 /* main styling  */
@@ -63,14 +96,189 @@ body {
 /* header */
 
 header#header {
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
   grid-column: container-start/container-end;
-  height: 200px;
+  background: linear-gradient(var(--color-primary-m-light), var(--color-primary-m-light)), url('img/hero.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
 
 }
 
+/* nav */
+.header__main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.header__main-nav input[type="checkbox"] {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  height: 5rem;
+  width: 5rem;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* hamburger */
+.header__main-nav--hamburger {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  height: 5rem;
+  width: 5rem;
+  padding: 1rem;
+  background-color: var(--color-secondary);
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+/* hamburger lines */
+
+.header__main-nav--hamburger>div {
+  position: relative;
+  height: 0.3rem;
+  width: 100%;
+  background-color: var(--color-quaternary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all var(--transition-duration) ease-in-out;
+}
+
+
+/* hamburger  top and bottom lines */
+.header__main-nav--hamburger>div::before,
+.header__main-nav--hamburger>div::after {
+  content: '';
+  position: absolute;
+  top: -1rem;
+  width: 60%;
+  height: inherit;
+  background-color: inherit;
+  z-index: 2;
+}
+
+.header__main-nav--hamburger>div::before {
+  left: 0
+}
+
+.header__main-nav--hamburger>div::after {
+  top: 1rem;
+  right: 0
+}
+
+/* rotating menu */
+.header__main-nav input[type="checkbox"]:checked+.header__main-nav--hamburger>div {
+  transform: rotate(135deg);
+
+}
+
+.header__main-nav input[type="checkbox"]:checked+.header__main-nav--hamburger>div::before {
+  left: 0;
+  top: 0;
+  width: 100%;
+  transform: rotate(270deg);
+
+}
+
+.header__main-nav input[type="checkbox"]:checked+.header__main-nav--hamburger>div::after {
+  opacity: 0;
+
+}
+
+.header__main-nav input[type="checkbox"]:checked:hover+.header__main-nav--hamburger>div {
+  transform: rotate(405deg);
+}
+
+/* links menu */
+.header__main-nav--menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  visibility: hidden;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__main-nav--menu>div {
+  background-color: var(--color-secondary-m-dark);
+  height: 200%;
+  width: 200%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: scaleX(0);
+  transition-duration: 1s;
+}
+
+
+.header__main-nav--menu>div>div {
+  text-align: center;
+  max-width: 90vw;
+  max-height: 100vh;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* menu when  checbox is chcecked */
+.header__main-nav input[type=checkbox]:checked~.header__main-nav--menu {
+  visibility: visible;
+}
+
+.header__main-nav input[type=checkbox]:checked~.header__main-nav--menu>div {
+  transform: scaleX(1);
+  /* transition-duration: 1s; */
+}
+
+.header__main-nav input[type=checkbox]:checked~.header__main-nav--menu>div >div {
+opacity:1
+}
+
+
+.header__main-nav--menu ul li a:link,
+.header__main-nav--menu ul li a:visited{
+  z-index: 5;
+  font-size: calc(1.5rem +0.5vw);
+}
+
+.header__main-nav--menu ul li a:link::before,
+.header__main-nav--menu ul li a:visited::before{
+  content: "";
+  position: absolute;
+  top:0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  transform: scaleY(0);
+  background-color: var(--color-primary-m-dark);
+  transition:transform  var(--transition-duration) ease-in-out;
+}
+.header__main-nav--menu ul li a:hover::before,
+.header__main-nav--menu ul li a:hover::before{
+  transform: scaleY(1);
+}
+
 /* booking content */
-section#booking-content{
+section#booking-content {
   background-color: var(--color-secondary);
   grid-column: center-start/col-end 6;
   height: 400px;
@@ -78,7 +286,7 @@ section#booking-content{
 
 /* booking date */
 
-section#booking-date{
+section#booking-date {
   background-color: var(--color-tertiary);
   grid-column: col-start 7/ center-end;
   height: 400px;
@@ -86,14 +294,14 @@ section#booking-date{
 
 /* villas section */
 
-section#villas{
+section#villas {
   background-color: var(--color-primary);
   grid-column: container-start/container-end;
   height: 400px;
 }
 
 /* motto section */
-section#motto{
+section#motto {
   background-color: var(--color-secondary);
   grid-column: container-start/container-end;
   height: 400px;
@@ -101,7 +309,7 @@ section#motto{
 
 /* events content */
 
-section#events-content{
+section#events-content {
   background-color: var(--color-tertiary);
   grid-column: container-start/ col-end 9;
   height: 400px;
@@ -109,30 +317,30 @@ section#events-content{
 
 
 /* event date */
-section#events-text{
+section#events-text {
   background-color: var(--color-primary);
   grid-column: col-start 10/ center-end;
   height: 400px;
 }
 
 /* gallery text */
-section#gallery-text{
+section#gallery-text {
   background-color: var(--color-secondary);
-  grid-column: center-start/col-end 1 ;
+  grid-column: center-start/col-end 1;
   height: 400px;
 }
 
 
 /* gallery carousel */
-section#gallery-carousel{
+section#gallery-carousel {
   background-color: var(--color-tertiary);
-  grid-column: col-start 2 /container-end ;
+  grid-column: col-start 2 /container-end;
   height: 400px;
 }
 
 /* features content */
 
-section#features-content{
+section#features-content {
   background-color: var(--color-primary);
   grid-column: container-start/ col-end 9;
   height: 400px;
@@ -140,7 +348,7 @@ section#features-content{
 
 
 /* features text */
-section#features-text{
+section#features-text {
   background-color: var(--color-secondary);
   grid-column: col-start 10/ center-end;
   height: 400px;
@@ -149,7 +357,7 @@ section#features-text{
 
 /* testimonials */
 
-section#testimonials{
+section#testimonials {
   background-color: var(--color-secondary);
   grid-column: center-start/center-end;
   height: 400px;
@@ -157,7 +365,7 @@ section#testimonials{
 
 /* footer */
 
-footer#footer{
+footer#footer {
   background-color: var(--color-primary);
   grid-column: container-start/container-end;
   height: 400px;
