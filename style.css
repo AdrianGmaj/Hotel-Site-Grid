@@ -982,7 +982,11 @@ font-weight: 400;
 footer#footer {
   background-color: var(--color-primary);
   grid-column: container-start/container-end;
-  height: 400px;
+  padding: 6vh 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 /* 800px */
